@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="utf-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <title>Vue!</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+ </head>
+ <body>
+   <!-- This is the div that is assigned the id= 'app' -->
+<div id='app'>
+    <todo-item 
+        v-for="todo of todos"
+      v-bind:title="todo.title"></todo-item> 
+      <div>
+        <input v-model="todo" />
+        <button v-on:click="addTodo">Add todo</button>
+      </div>
+      </div>
+<script>
+new Vue({
+    // This `id` is used as a value of `el` so that it knows  
+    // which element `Vue` should be mounted on.
+    el: '#app'  
+})
+</script>
+
+   <script src="https://unpkg.com/vue@next"></script>
+   <script type="text/javascript">
+    const TodoApp = {
+  data() {
+    return {
+      todos: [{title: "Shop for Christmas",},],
+      todo: "",
+    };
+  },
+  methods: {
+    addTodo(){
+        if(this.$data.todo.length > 0){
+            this.$data.todos.push({title: this.$data.todo});
+            this.$data.todo = "";
+        }
+    },
+  },
+};
+    const app = Vue.createApp(TodoApp);
+    app.component("todo-item", {
+        props: {
+            title: String,
+        },
+        template: `
+            <li>
+                {{title}}
+                </li>
+                `,
+    });
+    app.mount("#app");
+  </script>
+ </body>
+</html>
